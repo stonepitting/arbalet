@@ -197,3 +197,14 @@ form .field{padding: 0 0 10px 0;}
 #pane2-tabs li a{color: #4d0808;font-weight: bold; text-transform: uppercase;}
 #pane2-tabs .tab-selected{border: 2px solid #4d0808; background-color: #4d0808; color: #fff; }
 #pane2-tabs .tab-selected a {color: #fff;}
+#pane2-tabs #settings_tab {background-color: #ffa200;}
+#pane2-tabs .settings_tab_selected{border-color:#ffa200;background-color: #4d0808;}
+#pane2-tabs .settings_tab_selected a{color: #ffa200;}
+
+.table{width: 100%;}
+.table th{background-color: #4d0808; color: #fff; font-weight: bold; padding: 5px 10px ;}
+.table td{padding: 5px 10px;}
+.table .zebra td{background-color: #eee;}
+
+#page-visualizer{display:none;}
+.app-code{width:95%; height: 160px; padding: 5px; border:1px dashed #aaa; color: #666;}

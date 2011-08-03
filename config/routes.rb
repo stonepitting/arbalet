@@ -8,8 +8,9 @@ Arbalet::Application.routes.draw do
   match 'dashboard' => 'home#dashboard'
   
   resources :apps do
+    resources :pages
     member do
-      resources :pages
+      get 'settings'
     end
   end
 

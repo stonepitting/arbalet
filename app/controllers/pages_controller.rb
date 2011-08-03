@@ -4,19 +4,19 @@ class PagesController < ApplicationController
   def index
     cond = {}
     
-    if params[:id]
-      @app = App.find(params[:id])
-      cond = {:id => @app.id}
+    if params[:app_id]
+      @app = App.find(params[:app_id])
+      cond = {:app_id => @app.id}
     end
-    puts "---------------"
-    puts "App #{@app.id}"
+    
     @pages = Page.all(:conditions => cond)
 
+    #New page to be saved
+    @page = Page.new
+    @page.app_id = @app.id
     
     if (request.xhr?)
       if @pages.count == 0
-        @page = Page.new
-        @page.app_id = @app.id
         render :partial => 'no_pages'
       else
         render :partial => 'index_ajax'
@@ -67,11 +67,13 @@ class PagesController < ApplicationController
     @page.user = current_user
     respond_to do |format|
       if @page.save
-        format.html { redirect_to(@page, :notice => 'Page was successfully created.') }
-        format.xml  { render :xml => @page, :status => :created, :location => @page }
+          format.html { redirect_to(@page, :notice => 'Page was successfully created.') }
+          format.xml  { render :xml => @page, :status => :created, :location => @page }
+        
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @page.errors, :status => :unprocessable_entity }
+          format.html { render :action => "new" }
+          format.xml  { render :xml => @page.errors, :status => :unprocessable_entity }
+        
       end
     end
   end

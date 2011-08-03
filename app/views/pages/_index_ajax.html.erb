@@ -1,0 +1,46 @@
+<div id="page-visualizer">
+	<a href="#" onclick="return backToListing(<%=@app.id%>)"><small>&laquo; Back to all pages</small></a><br />
+	<h1>Home</h1>
+	azpjae<br />
+	azpjae<br />
+	azpjae<br />
+	azpjae<br />
+	azpjae<br />
+	azpjae<br />
+	azpjae<br />
+</div>
+
+<div id="listing-pages">
+	<h1>All pages</h1>
+	<table class="table">
+	  <tr>
+	    <th width="20%">Name</th>
+	    <th width="50%">Url</th>
+	    <th>Enabled</th>
+	    <th width="20%"></th>
+	  </tr>
+
+	<% 
+	i = 0
+	@pages.each do |page| 
+		i += 1 
+		%>
+	  <tr class="<%= i%2 == 0 ? 'zebra':''%> ">
+	    <td><%= link_to page.name, '#', :onclick => "return showPage(#{page.id})" %></td>
+	    <td><%= page.url %></td>
+	    <td><%= page.enabled %></td>
+	    <td>
+			<%= link_to 'Show', page %>
+			<%= link_to 'Edit', edit_page_path(page) %>
+			<%= link_to 'Destroy', page, :confirm => 'Are you sure?', :method => :delete %>
+		</td>
+    
+	  </tr>
+	<% end %>
+	</table>
+
+	<br />
+
+	<%=render :partial => 'pages/form'%>
+
+</div>

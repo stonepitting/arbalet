@@ -1,4 +1,5 @@
-<%= form_for @page, :remote => true do |f| %>
+<h2>Add a new page</h2>
+<%= form_for @page, :remote => true, :html => { :'data-type' => 'html', :id => 'create_form' } do |f| %>
   <% if @page.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@page.errors.count, "error") %> prohibited this page from being saved:</h2>
@@ -29,3 +30,10 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+
+console.log('prepareForm...');
+prepareForm(<%=@app.id%>, 'pages');
+
+</script>

@@ -26,6 +26,12 @@ class AppsController < ApplicationController
     end
   end
 
+
+  def settings
+    @app = App.find(params[:id])
+    render :partial => 'settings'
+  end
+  
   # GET /apps/new
   # GET /apps/new.xml
   def new

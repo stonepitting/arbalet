@@ -1,0 +1,16 @@
+<h2>Integration code</h2>
+<p>
+	Add this code to your website.
+</p>
+<p>
+<textarea readonly class="app-code" onclick="this.select()">
+	<script type="text/javascript">
+		(function() {
+		var url = encodeURI(document.location.href);
+		var tipsy_loader = document.createElement('script'); tipsy_loader.type = 'text/javascript'; tipsy_loader.async = true;
+	    tipsy_loader.src = 'http://<%=request.env["HTTP_HOST"]%>/apps/<%=@app.id%>/code.js?url=' + url;
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(tipsy_loader, s);
+	  })();
+	</script>
+</textarea>
+</p>
