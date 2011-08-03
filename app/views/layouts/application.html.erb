@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Arbalet</title>
+  <%= stylesheet_link_tag 'style' %>
+  <%= javascript_include_tag 'jquery.min.js', 'application', 'jquery_ujs' %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+	<div id="alert">
+		<%= notice %>
+	    <%= alert %>
+	</div>
+	
+	<% if notice || alert %>
+	<script type="text/javascript">
+	$('#alert').fadeIn().delay(5000).fadeOut();
+	</script>
+	<% end %>
+	<div id="header">
+		<div class="wrapper">
+			<% if user_signed_in? %>
+			<div id="identity">
+				<%=current_user.email%> | 
+				<%= link_to('Logout', destroy_user_session_path) %>
+				
+			</div>
+			<% end %>
+			<h1><a href="/"><strong>Arbalet.</strong></a></h1>
+		</div>
+		
+	</div>
+	<div class="wrapper">
+		<%= yield %>
+	</div>
+</body>
+</html>

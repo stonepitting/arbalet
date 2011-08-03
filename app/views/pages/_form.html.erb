@@ -1,0 +1,31 @@
+<%= form_for @page, :remote => true do |f| %>
+  <% if @page.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@page.errors.count, "error") %> prohibited this page from being saved:</h2>
+
+      <ul>
+      <% @page.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name, 'Page Name' %><br />
+	<small><em>Name of your page as it will appear on Arbalet</em></small><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :url, 'URL of your page' %><br /><small><em>This is the URL where you want to display tips, panels or boxes</em></small><br />
+    <%= f.text_field :url %>
+  </div>
+  <%= f.hidden_field :app_id %>
+  <div class="field">
+    <%= f.label :enabled %><br />
+    <%= f.check_box :enabled, :checked => true %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

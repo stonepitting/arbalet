@@ -1,0 +1,21 @@
+<div id="pane1">
+	<div class="block">
+		<%= link_to image_tag('/images/add.png'), new_app_path, :class => 'add-app-button'%>
+		<h3>My Apps</h3>
+
+		<ul>
+		<% @apps.each do |app| %>
+		<li id="app_<%=app.id%>" class="app"><%=link_to app.name, app, :onclick => "return loadSite(#{app.id});"%>
+		<%=image_tag '/images/sub_pointer.png', :class => 'app-pointer'%>
+		</li>
+		<% end %>
+		</ul>
+	</div>
+</div>
+<div id="pane2">
+	
+</div>
+
+<script type="text/javascript">
+loadApp(<%=@load_app_id%>);
+</script>

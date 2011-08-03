@@ -1,0 +1,14 @@
+<h1><%=@app.name%></h1>
+
+<ul id="pane2-tabs">
+	<li id="pages_tab"><a href="#" onclick="return loadTab(<%=@app.id%>, 'pages');">Pages</a></li>
+	<li id="tips_tab"><a href="#" onclick="return loadTab(<%=@app.id%>, 'tips');">Tips</a></li>
+	<li id="panels_tab"><a href="#" onclick="return loadTab(<%=@app.id%>, 'panels');">Panels</a></li>
+	<li id="boxes_tab"><a href="#" onclick="return loadTab(<%=@app.id%>, 'boxes');">Boxes</a></li>
+</ul>
+<div id="pane2-content">
+	
+</div>
+<script type="text/javascript">
+loadTab(<%=@app.id%>, '<%=@tab%>');
+</script>
