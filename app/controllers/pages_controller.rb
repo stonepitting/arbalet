@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  before_filter :authenticate_user!
   # GET /pages
   # GET /pages.xml
   def index

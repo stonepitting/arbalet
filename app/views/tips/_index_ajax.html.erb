@@ -1,0 +1,40 @@
+<div id="object-visualizer">
+	<a href="#" onclick="return backToListing(<%=@app.id%>)"><small>&laquo; Back to all pages</small></a><br />
+	<div id="object-edit">
+		
+	</div>
+	
+	
+</div>
+
+<div id="listing-object">
+	
+	<h1>All tips</h1>
+	<table class="table">
+	  <tr>
+	    <th width="60%">Content</th>
+	    <th>Enabled</th>
+	    <th width="20%"></th>
+	  </tr>
+	<% 
+	i = 0
+	@tips.each do |tip| 
+		i += 1
+		%>
+		<tr class="<%= i%2 == 0 ? 'zebra':''%> ">
+			<td><%= link_to tip.content, '#', :onclick => "return showObject('tips', #{tip.id})" %></td>
+		    <td><%= tip.enabled %></td>
+		    <td>
+				<%= link_to 'Show', tip %>
+				<%= link_to 'Edit', edit_tip_path(tip) %>
+				<%= link_to 'Destroy', tip, :confirm => 'Are you sure?', :method => :delete %>
+			</td>
+
+		</tr>
+		
+	<% end %>
+	</table>
+	<br />
+	<%=render :partial => 'tips/form'%>
+
+</div>

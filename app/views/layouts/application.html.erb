@@ -7,12 +7,12 @@
   <%= csrf_meta_tag %>
 </head>
 <body>
-	<div id="alert">
-		<%= notice %>
-	    <%= alert %>
-	</div>
-	
 	<% if notice || alert %>
+		<div id="alert">
+			<%= notice %>
+		    <%= alert %>
+		</div>
+		
 	<script type="text/javascript">
 	$('#alert').fadeIn().delay(5000).fadeOut();
 	</script>

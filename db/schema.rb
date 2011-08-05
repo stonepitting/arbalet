@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110803171552) do
+ActiveRecord::Schema.define(:version => 20110804093407) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -26,6 +26,15 @@ ActiveRecord::Schema.define(:version => 20110803171552) do
     t.integer  "user_id"
     t.integer  "app_id"
     t.boolean  "enabled"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tips", :force => true do |t|
+    t.string   "content"
+    t.integer  "app_id"
+    t.integer  "user_id"
+    t.boolean  "enabled",    :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

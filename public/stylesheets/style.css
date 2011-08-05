@@ -131,9 +131,10 @@ input[type="button"], input[type="submit"], a.button{
 		cursor:pointer;
 	}
 
-	#home input[type="button"],#home input[type="submit"], a.button{
+	#home input[type="button"],#home input[type="submit"], #home a.button{
+		margin: 5px 0;
 			display: block;
-			padding: 11px;
+			padding: 10px;
 			font-size: 20px;
 			font-weight:bold;
 			width: 300px;
@@ -158,6 +159,8 @@ label{font-weight:bold;}
 
 form{padding: 10px; border: 1px solid #ccc; background-color: #eee;}
 form .field{padding: 0 0 10px 0;}
+
+#home form{padding:0; border: 0; background:transparent	}
 
 /* HEADER STUFFS */
 #header, #main{text-align:left;}
@@ -206,5 +209,9 @@ form .field{padding: 0 0 10px 0;}
 .table td{padding: 5px 10px;}
 .table .zebra td{background-color: #eee;}
 
-#page-visualizer{display:none;}
+#object-visualizer{display:none;}
 .app-code{width:95%; height: 160px; padding: 5px; border:1px dashed #aaa; color: #666;}
+
+
+/* TIPS */
+.tip-block{padding: 5px 10px; border: 1px solid #ccc}

@@ -77,14 +77,15 @@ function prepareForm(app_id, object){
 }
 
 
-function showPage(page_id){
-	$('#listing-pages').slideUp();
-	$('#page-visualizer').slideDown();
+function showObject(object_type, object_id){
+	$('#listing-object').slideUp();
+	$('#object-visualizer').slideDown();
+	$('#object-edit').load('/' + object_type + '/' + object_id + '/edit');
 	return false;
 }
 
-function backToListing(app_id){
-	$('#listing-pages').slideDown();
-	$('#page-visualizer').slideUp();
+function backToListing(object_type, app_id){
+	$('#listing-object').slideDown();
+	$('#object-visualizer').slideUp();
 	return false;
 }

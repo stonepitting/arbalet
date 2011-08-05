@@ -1,4 +1,4 @@
-<div id="page-visualizer">
+<div id="object-visualizer">
 	<a href="#" onclick="return backToListing(<%=@app.id%>)"><small>&laquo; Back to all pages</small></a><br />
 	<h1>Home</h1>
 	azpjae<br />
@@ -10,7 +10,7 @@
 	azpjae<br />
 </div>
 
-<div id="listing-pages">
+<div id="listing-object">
 	<h1>All pages</h1>
 	<table class="table">
 	  <tr>
@@ -26,7 +26,7 @@
 		i += 1 
 		%>
 	  <tr class="<%= i%2 == 0 ? 'zebra':''%> ">
-	    <td><%= link_to page.name, '#', :onclick => "return showPage(#{page.id})" %></td>
+	    <td><%= link_to page.name, '#', :onclick => "return showObject('pages', #{page.id})" %></td>
 	    <td><%= page.url %></td>
 	    <td><%= page.enabled %></td>
 	    <td>
