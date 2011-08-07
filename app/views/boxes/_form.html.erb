@@ -1,0 +1,43 @@
+<%= form_for @box, :remote => true, :html => { :'data-type' => 'html', :id => 'create_form' } do |f| %>
+  <% if @box.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@box.errors.count, "error") %> prohibited this box from being saved:</h2>
+
+      <ul>
+      <% @box.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <%= f.hidden_field :app_id %>
+  <div class="field">
+    <%= f.label :content %>
+    <%= f.text_field :content %>
+  </div>
+  <div class="field">
+    <%= f.label :enabled %>
+    <%= f.check_box :enabled %>
+  </div>
+  <div class="field">
+    <%= f.label :target_id %>
+    <%= f.text_field :target_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+
+$(function(){
+  prepareForm(<%=@app.id%>, 'boxes');
+  $('#box_name').focus();
+});
+
+</script>

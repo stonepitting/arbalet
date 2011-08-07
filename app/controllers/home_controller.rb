@@ -12,6 +12,7 @@ class HomeController < ApplicationController
     # if apps.count == 0 we prepare an app to be created during the tutorial
     if @apps.count == 0
       @app = App.new
+      @app.url = 'http'
     else
       @load_app_id = params[:app] == nil ? @apps.first.id : params[:app]
     end

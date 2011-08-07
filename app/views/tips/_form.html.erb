@@ -12,13 +12,13 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :content %><br />
+    <%= f.label :content %>
     <%= f.text_field :content %>
   </div>
   <%= f.hidden_field :app_id %>
   <div class="field">
-    <%= f.label :enabled %><br />
-    <%= f.check_box :enabled %>
+    <%= f.label :enabled %>
+    <%= f.check_box :enabled, :checked => true %>
   </div>
   <div class="actions">
     <%= f.submit %>

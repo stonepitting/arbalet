@@ -1,0 +1,39 @@
+<div id="object-visualizer">
+	<a href="#" onclick="return backToListing(<%=@app.id%>)"><small>&laquo; Back to all panels</small></a><br />
+	<div id="object-edit">
+
+	</div>
+	
+</div>
+
+<div id="listing-object">
+	<h1>All panels</h1>
+	<table class="table">
+	  <tr>
+	    <th width="20%">Name</th>
+	    <th>Enabled</th>
+	    <th>Display URL</th>
+	    <th width="20%"></th>
+	  </tr>
+
+	<% 
+	i = 0
+	@panels.each do |panel| 
+		i += 1 
+		%>
+	  <tr class="<%= i%2 == 0 ? 'zebra':''%> ">
+	    <td><%= link_to panel.name, '#', :onclick => "return showObject('panels', #{panel.id})" %></td>
+	    <td><%= panel.enabled %></td>
+	    <td><%= display_panel_path(panel, :only_path => false ) %></td>
+	    <td>
+			<%= link_to 'Destroy', '#', :onclick => "return deleteObject('panels', #{panel.id}, #{panel.app_id});" %>
+		</td>
+    
+	  </tr>
+	<% end %>
+	</table>
+
+	<h2>Add a new panel</h2>
+	<%=render :partial => 'panels/form'%>
+
+</div>

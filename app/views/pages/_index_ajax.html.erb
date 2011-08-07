@@ -1,13 +1,9 @@
 <div id="object-visualizer">
 	<a href="#" onclick="return backToListing(<%=@app.id%>)"><small>&laquo; Back to all pages</small></a><br />
-	<h1>Home</h1>
-	azpjae<br />
-	azpjae<br />
-	azpjae<br />
-	azpjae<br />
-	azpjae<br />
-	azpjae<br />
-	azpjae<br />
+	<div id="object-edit">
+
+	</div>
+	
 </div>
 
 <div id="listing-object">
@@ -30,17 +26,14 @@
 	    <td><%= page.url %></td>
 	    <td><%= page.enabled %></td>
 	    <td>
-			<%= link_to 'Show', page %>
-			<%= link_to 'Edit', edit_page_path(page) %>
-			<%= link_to 'Destroy', page, :confirm => 'Are you sure?', :method => :delete %>
+			<%= link_to 'Destroy', '#', :onclick => "return deleteObject('pages', #{page.id}, #{page.app_id});" %>
 		</td>
     
 	  </tr>
 	<% end %>
 	</table>
 
-	<br />
-
+	<h2>Add a new page</h2>
 	<%=render :partial => 'pages/form'%>
 
 </div>

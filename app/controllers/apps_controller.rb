@@ -1,5 +1,5 @@
 class AppsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:code]
   # GET /apps
   # GET /apps.xml
   def index
@@ -24,6 +24,28 @@ class AppsController < ApplicationController
         format.xml  { render :xml => @page }
       end
     end
+  end
+
+  #display the javascript
+  def code
+    require 'uri'
+    
+    @app = App.find(params[:id])
+    
+    # Retrieving custom params for a particular page
+=begin
+    if params[:url]
+      page_url = URI.unescape(params[:url])
+      page = Page.find_by_url(page_url)
+      if page
+        @show_tips = page.show_tips
+      end
+      pane = Pane.find_by_url(page_url)
+      if pane && pane.enabled
+        @pane = pane
+      end
+    end
+=end
   end
 
 
@@ -86,9 +108,15 @@ class AppsController < ApplicationController
     @app = App.find(params[:id])
     @app.destroy
 
-    respond_to do |format|
-      format.html { redirect_to(apps_url) }
-      format.xml  { head :ok }
+    if request.xhr?
+      render :header => 200
+    else
+
+      respond_to do |format|
+        format.html { redirect_to(apps_url) }
+        format.xml  { head :ok }
+      end
+
     end
   end
 end

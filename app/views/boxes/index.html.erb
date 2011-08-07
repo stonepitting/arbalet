@@ -1,0 +1,33 @@
+<h1>Listing boxes</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>App</th>
+    <th>User</th>
+    <th>Content</th>
+    <th>Enabled</th>
+    <th>Target</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @boxes.each do |box| %>
+  <tr>
+    <td><%= box.name %></td>
+    <td><%= box.app_id %></td>
+    <td><%= box.user_id %></td>
+    <td><%= box.content %></td>
+    <td><%= box.enabled %></td>
+    <td><%= box.target_id %></td>
+    <td><%= link_to 'Show', box %></td>
+    <td><%= link_to 'Edit', edit_box_path(box) %></td>
+    <td><%= link_to 'Destroy', box, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Box', new_box_path %>

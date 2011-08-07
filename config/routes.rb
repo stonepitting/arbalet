@@ -1,4 +1,8 @@
 Arbalet::Application.routes.draw do
+  resources :boxes
+
+  resources :panels
+
   resources :tips
 
   resources :pages
@@ -13,6 +17,19 @@ Arbalet::Application.routes.draw do
     resources :pages, :tips, :panels, :boxes
     member do
       get 'settings'
+      get 'code'
+    end
+  end
+
+  resources :panels do
+    member do
+      get 'display'
+    end
+  end
+
+  resources :boxes do
+    member do
+      get 'display'
     end
   end
 

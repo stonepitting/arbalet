@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Arbalet</title>
+  <%= stylesheet_link_tag 'style' %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+	<div id="display-box">
+		<%=raw @box.content%>
+	</div>
+</body>
+</html>

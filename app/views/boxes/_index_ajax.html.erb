@@ -1,0 +1,39 @@
+<div id="object-visualizer">
+	<a href="#" onclick="return backToListing(<%=@app.id%>)"><small>&laquo; Back to all boxes</small></a><br />
+	<div id="object-edit">
+
+	</div>
+	
+</div>
+
+<div id="listing-object">
+	<h1>All boxes</h1>
+	<table class="table">
+	  <tr>
+	    <th width="20%">Name</th>
+	    <th>Enabled</th>
+	    <th>Display url</th>
+	    <th width="20%"></th>
+	  </tr>
+
+	<% 
+	i = 0
+	@boxes.each do |box| 
+		i += 1 
+		%>
+	  <tr class="<%= i%2 == 0 ? 'zebra':''%> ">
+	    <td><%= link_to box.name, '#', :onclick => "return showObject('boxes', #{box.id})" %></td>
+	    <td><%= box.enabled %></td>
+	    <td><%= display_box_path(box, :only_path => false )%></td>
+	    <td>
+			<%= link_to 'Destroy', '#', :onclick => "return deleteObject('boxes', #{box.id}, #{box.app_id});" %>
+		</td>
+    
+	  </tr>
+	<% end %>
+	</table>
+
+	<h2>Add a new box</h2>
+	<%=render :partial => 'boxes/form'%>
+
+</div>

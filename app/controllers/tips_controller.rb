@@ -20,7 +20,7 @@ class TipsController < ApplicationController
     
     if (request.xhr?)
       if @tips.count == 0
-        render :partial => 'no_pages'
+        render :partial => 'no_tips'
       else
         render :partial => 'index_ajax'
       end
@@ -58,9 +58,9 @@ class TipsController < ApplicationController
   # GET /tips/1/edit
   def edit
     @tip = Tip.find(params[:id])
-    
+    @app  = @tip.app   
     if request.xhr?
-      render :partial => 'edit'
+      render :layout => false
     end
   end
 
@@ -72,7 +72,7 @@ class TipsController < ApplicationController
 
     respond_to do |format|
       if @tip.save
-        format.html { redirect_to(@tip, :notice => 'Tip was successfully created.') }
+        format.html { redirect_to(app_tips_path(@tip.app_id), :notice => 'Tip was successfully created.') }
         format.xml  { render :xml => @tip, :status => :created, :location => @tip }
       else
         format.html { render :action => "new" }
@@ -88,7 +88,7 @@ class TipsController < ApplicationController
 
     respond_to do |format|
       if @tip.update_attributes(params[:tip])
-        format.html { redirect_to(@tip, :notice => 'Tip was successfully updated.') }
+        format.html { redirect_to(app_tips_path(@tip.app_id), :notice => 'Tip was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -103,9 +103,14 @@ class TipsController < ApplicationController
     @tip = Tip.find(params[:id])
     @tip.destroy
 
-    respond_to do |format|
-      format.html { redirect_to(tips_url) }
-      format.xml  { head :ok }
+    if request.xhr?
+      head :ok
+    else
+
+      respond_to do |format|
+        format.html { redirect_to(tips_url) }
+        format.xml  { head :ok }
+      end
     end
   end
 end

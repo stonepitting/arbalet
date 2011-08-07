@@ -147,6 +147,8 @@ input[type="button"]:hover,input[type="submit"]:hover{
 	background:url('/images/button-bg-hover.jpg');
 }
 
+label{float:left; width: 150px;}
+
 
 /* GENERAL STYLES */
 h1{font-size: 30px; font-weight: bold; color: #720e0e; display:block; line-height: 34px;margin: 0 0 10px 0;}
@@ -204,7 +206,7 @@ form .field{padding: 0 0 10px 0;}
 #pane2-tabs .settings_tab_selected{border-color:#ffa200;background-color: #4d0808;}
 #pane2-tabs .settings_tab_selected a{color: #ffa200;}
 
-.table{width: 100%;}
+.table{width: 100%; margin-bottom: 20px;}
 .table th{background-color: #4d0808; color: #fff; font-weight: bold; padding: 5px 10px ;}
 .table td{padding: 5px 10px;}
 .table .zebra td{background-color: #eee;}
@@ -215,3 +217,5 @@ form .field{padding: 0 0 10px 0;}
 
 /* TIPS */
 .tip-block{padding: 5px 10px; border: 1px solid #ccc}
+
+#display-box{padding: 5px;text-align:left;}

@@ -7,9 +7,13 @@
 	<script type="text/javascript">
 		(function() {
 		var url = encodeURI(document.location.href);
-		var tipsy_loader = document.createElement('script'); tipsy_loader.type = 'text/javascript'; tipsy_loader.async = true;
-	    tipsy_loader.src = 'http://<%=request.env["HTTP_HOST"]%>/apps/<%=@app.id%>/code.js?url=' + url;
-	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(tipsy_loader, s);
+		var jquery_loader = document.createElement('script'); jquery_loader.type = 'text/javascript'; jquery_loader.async = true;
+	    jquery_loader.src = 'http://<%=request.env["HTTP_HOST"]%>/javascripts/jquery.min.js';
+	    var jq = document.getElementsByTagName('script')[0]; jq.parentNode.insertBefore(jquery_loader, s);
+	
+		var arbalet_loader = document.createElement('script'); arbalet_loader.type = 'text/javascript'; arbalet_loader.async = true;
+	    arbalet_loader.src = 'http://<%=request.env["HTTP_HOST"]%>/apps/<%=@app.id%>/code.js?url=' + url;
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(arbalet_loader, s);
 	  })();
 	</script>
 </textarea>

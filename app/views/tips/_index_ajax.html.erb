@@ -25,9 +25,7 @@
 			<td><%= link_to tip.content, '#', :onclick => "return showObject('tips', #{tip.id})" %></td>
 		    <td><%= tip.enabled %></td>
 		    <td>
-				<%= link_to 'Show', tip %>
-				<%= link_to 'Edit', edit_tip_path(tip) %>
-				<%= link_to 'Destroy', tip, :confirm => 'Are you sure?', :method => :delete %>
+				<%= link_to 'Destroy', tip, :onclick => "return deleteObject('tips', #{tip.id}, #{tip.app_id});" %>
 			</td>
 
 		</tr>

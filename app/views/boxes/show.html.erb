@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @box.name %>
+</p>
+
+<p>
+  <b>App:</b>
+  <%= @box.app_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @box.user_id %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= @box.content %>
+</p>
+
+<p>
+  <b>Enabled:</b>
+  <%= @box.enabled %>
+</p>
+
+<p>
+  <b>Target:</b>
+  <%= @box.target_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_box_path(@box) %> |
+<%= link_to 'Back', boxes_path %>

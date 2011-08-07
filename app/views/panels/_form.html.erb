@@ -1,0 +1,47 @@
+<%= form_for @panel, :remote => true, :html => { :'data-type' => 'html', :id => 'create_form' } do |f| %>
+  <% if @panel.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@panel.errors.count, "error") %> prohibited this panel from being saved:</h2>
+
+      <ul>
+      <% @panel.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <%= f.hidden_field :app_id %>
+  <div class="field">
+    <%= f.label :content %>
+    <%= f.text_area :content %>
+  </div>
+  <div class="field">
+    <%= f.label :enabled %>
+    <%= f.check_box :enabled %>
+  </div>
+  <div class="field">
+    <%= f.label :use_content_url %>
+    <%= f.check_box :use_content_url %>
+  </div>
+  <div class="field">
+    <%= f.label :content_url %>
+    <%= f.text_field :content_url %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Save', :class => 'button' %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+
+$(function(){
+  prepareForm(<%=@app.id%>, 'panels');
+  $('#panel_name').focus();
+});
+
+</script>

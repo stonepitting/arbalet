@@ -10,12 +10,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110804093407) do
+ActiveRecord::Schema.define(:version => 20110806040009) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
     t.string   "url"
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "boxes", :force => true do |t|
+    t.string   "name"
+    t.integer  "app_id"
+    t.integer  "user_id"
+    t.text     "content"
+    t.boolean  "enabled",    :default => true
+    t.string   "target_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -26,6 +37,18 @@ ActiveRecord::Schema.define(:version => 20110804093407) do
     t.integer  "user_id"
     t.integer  "app_id"
     t.boolean  "enabled"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "panels", :force => true do |t|
+    t.string   "name"
+    t.integer  "app_id"
+    t.integer  "user_id"
+    t.text     "content"
+    t.boolean  "enabled",         :default => true
+    t.string   "content_url"
+    t.boolean  "use_content_url", :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

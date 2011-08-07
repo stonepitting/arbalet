@@ -15,6 +15,7 @@ class PagesController < ApplicationController
     #New page to be saved
     @page = Page.new
     @page.app_id = @app.id
+    @page.url = 'http://'
     
     if (request.xhr?)
       if @pages.count == 0
@@ -59,6 +60,11 @@ class PagesController < ApplicationController
   # GET /pages/1/edit
   def edit
     @page = Page.find(params[:id])
+    @app  = @page.app
+
+    if request.xhr?
+      render :layout => false
+    end
   end
 
   # POST /pages
@@ -68,7 +74,7 @@ class PagesController < ApplicationController
     @page.user = current_user
     respond_to do |format|
       if @page.save
-          format.html { redirect_to(@page, :notice => 'Page was successfully created.') }
+          format.html { redirect_to(app_pages_path(@page.app_id), :notice => 'Page was successfully created.') }
           format.xml  { render :xml => @page, :status => :created, :location => @page }
         
       else
@@ -86,7 +92,7 @@ class PagesController < ApplicationController
 
     respond_to do |format|
       if @page.update_attributes(params[:page])
-        format.html { redirect_to(@page, :notice => 'Page was successfully updated.') }
+        format.html { redirect_to(app_pages_path(@page.app_id), :notice => 'Page was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -101,9 +107,14 @@ class PagesController < ApplicationController
     @page = Page.find(params[:id])
     @page.destroy
 
-    respond_to do |format|
-      format.html { redirect_to(pages_url) }
-      format.xml  { head :ok }
+    if request.xhr?
+      head :ok
+    else
+
+      respond_to do |format|
+        format.html { redirect_to(pages_url) }
+        format.xml  { head :ok }
+      end
     end
   end
 end

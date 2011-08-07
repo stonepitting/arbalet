@@ -12,11 +12,11 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :url %><br />
+    <%= f.label :url %>
     <%= f.text_field :url %>
   </div>
 
@@ -24,3 +24,9 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+$(function(){
+  $('#app_name').focus();
+});
+</script>
