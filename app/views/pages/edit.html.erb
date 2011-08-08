@@ -1,3 +1,17 @@
 <h1>Editing <%=@page.name%></h1>
 
 <%= render 'form' %>
+<br />
+<h2>Boxes</h2>
+<select id="add-box">
+	<option>Choose one</option>
+	<% @available_boxes.each do |box| %>
+	<option value="<%=box.id%>"><%=box.name%></option>
+	<% end %>
+</select>
+<input type="button" class="button" onclick="return addBox(<%=@page.id%>)" value="Add" />
+<ul>
+	<% @page_boxes.each do |box| %>
+	<li><%=box.name%></li>
+	<% end %>
+</ul>

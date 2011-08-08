@@ -1,4 +1,6 @@
 Arbalet::Application.routes.draw do
+  resources :page_boxes
+
   resources :boxes
 
   resources :panels

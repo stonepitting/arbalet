@@ -10,4 +10,5 @@ class User < ActiveRecord::Base
   has_many :apps
   has_many :pages
   has_many :tips
+  has_many :page_boxes
 end

@@ -1,0 +1,27 @@
+<h1>Listing page_boxes</h1>
+
+<table>
+  <tr>
+    <th>Page</th>
+    <th>App</th>
+    <th>User</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @page_boxes.each do |page_box| %>
+  <tr>
+    <td><%= page_box.page_id %></td>
+    <td><%= page_box.app_id %></td>
+    <td><%= page_box.user_id %></td>
+    <td><%= link_to 'Show', page_box %></td>
+    <td><%= link_to 'Edit', edit_page_box_path(page_box) %></td>
+    <td><%= link_to 'Destroy', page_box, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Page box', new_page_box_path %>

@@ -82,9 +82,22 @@ function prepareForm(app_id, object){
 
 
 function showObject(object_type, object_id){
-	$('#listing-object').slideUp();
-	$('#object-visualizer').slideDown();
-	$('#object-edit').load('/' + object_type + '/' + object_id + '/edit');
+	
+	$.ajax({
+	     url: '/' + object_type + '/' + object_id + '/edit',
+	     success: function(data){
+	        // reload the tab
+	       
+			$('#object-edit').html(data);
+			$('#listing-object').slideUp();
+			$('#object-visualizer').slideDown();
+	     },
+	     beforeSend: function(){
+	       //loadImg('object-edit');
+	     }
+
+	   });
+	//$('').load();
 	return false;
 }
 
@@ -110,3 +123,40 @@ function backToListing(object_type, app_id){
 	$('#object-visualizer').slideUp();
 	return false;
 }
+
+function addBox(page_id){
+	load_url = '/page_boxes';
+	box_id = $('#add-box').val();
+	console.log(box_id);
+	$.ajax({
+	     url: load_url,
+		data: 'page_box[page_id]=' + page_id + '&page_box[box_id]=' + box_id,
+		type: 'POST',
+	     success: function(data){
+	        // reload the tab
+	       $('#object-edit').load('/pages/' + page_id + '/edit');
+	     },
+	     beforeSend: function(){
+	       loadImg('object-edit');
+	     }
+
+	   });
+}
+
+/*
+function removeBox(page_id, box_id){
+	if (confirm('Are you sure?')){
+	    del_url = '/page_boxes/' + page_box_id;
+	    $.ajax({
+	     type: "DELETE",
+	     url: del_url,
+	     success: function(msg){
+	        // reload the tab
+	       loadTab(app_id, object_type);
+	     }
+
+	   });
+	   return false;
+	  }
+}
+*/

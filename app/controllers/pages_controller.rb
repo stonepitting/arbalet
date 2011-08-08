@@ -17,6 +17,8 @@ class PagesController < ApplicationController
     @page.app_id = @app.id
     @page.url = 'http://'
     
+    @panels = Panel.all
+    
     if (request.xhr?)
       if @pages.count == 0
         render :partial => 'no_pages'
@@ -61,6 +63,11 @@ class PagesController < ApplicationController
   def edit
     @page = Page.find(params[:id])
     @app  = @page.app
+    @panels = Panel.all
+    
+    @page_boxes = @page.boxes
+    all_boxes = Box.where(:app_id => @app.id)
+    @available_boxes = all_boxes - @page_boxes
 
     if request.xhr?
       render :layout => false

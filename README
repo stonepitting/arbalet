@@ -1,5 +1,5 @@
 == TODO
 
-1. Create the JS to display the objects in a separate page.
+1. Create the remove function.
 2. Create the tables allowing you to add tips, panel and boxes to a page.
 3. Create the JS tooltip inside the targeted app, should appear only if logged in Arbalet

@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Page:</b>
+  <%= @page_box.page_id %>
+</p>
+
+<p>
+  <b>App:</b>
+  <%= @page_box.app_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @page_box.user_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_page_box_path(@page_box) %> |
+<%= link_to 'Back', page_boxes_path %>

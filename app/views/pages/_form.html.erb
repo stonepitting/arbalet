@@ -25,6 +25,12 @@
     <%= f.label :enabled %>
     <%= f.check_box :enabled, :checked => true %>
   </div>
+<% if @panels.size > 0 %>
+<div class="field">
+    <%= f.label :enabled %>
+	<%= select("page", "panel_id", @panels.collect {|p| [ p.name, p.id ] }, {:include_blank => 'None'})%>
+  </div>
+<% end %>
   <div class="actions">
     <%= f.submit %>
   </div>

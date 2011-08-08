@@ -1,0 +1,2 @@
+module PageBoxesHelper
+end

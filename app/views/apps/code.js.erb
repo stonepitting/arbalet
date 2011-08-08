@@ -3,44 +3,53 @@
 
 
 Arbalet = new function(){
-	var account = <%=@app.id%>
-	var base_url = '<%=url_for :controller => 'home', :only_path => false %>';
-	var _tips = new Array();
-	var _panel = null;
-	var _boxes = new Array();
-
+	
 	this.init = function(){
-		_panel = new Panel('http://localhost:3000/panels/4/display');
-		_boxes[0] = new Box(0, 'user_remember_me', 'http://localhost:3000/boxes/2/display');
+		this.account = <%=@app.id%>
+		this.base_url = '<%=url_for :controller => 'home', :only_path => false %>';
+		this._tips = new Array();
+		this._panel = null;
+		this._boxes = new Array();
+		<% if @panel %>
+		this._panel = new Panel('<%=url_for :controller => 'panels', :action => 'display', :id => @panel.id, :only_path => false %>');
+		this.insertPanel();
+		<% end %>
+		this._boxes[0] = new Box(0, 'user_remember_me', 'http://localhost:3000/boxes/2/display');
+		this._boxes[1] = new Box(1, 'user_password_confirmation', 'http://localhost:3000/boxes/2/display');
 
 	}
 
 	this.insertPanel = function(){
 		console.log('inserting panel');
-		console.log(_panel.target_url);
-		_panel.insert(); 
+		console.log(this._panel.target_url);
+		this._panel.insert(); 
 		
 	}
 
 	this.insertBoxes = function(){
-		for (var i = 0; i < _boxes.length; i++){
-			_boxes[i].insert();
+		for (var i = 0; i < this._boxes.length; i++){
+			this._boxes[i].insert();
 		}
 		
 	}
 
 	this.showBoxes = function(){
-		for (var i = 0; i < _boxes.length; i++){
-			_boxes[i].show();
+		for (var i = 0; i < this._boxes.length; i++){
+			this._boxes[i].show();
 		}
 		
 	}
 
+	this.hideBox = function(id){
+		console.log('hiding box ' + id);
+		this._boxes[id].hide();
+	}
+
 	this.showPanel = function(){
-		_panel.show();
+		this._panel.show();
 	}
 	this.hidePanel = function(){
-		_panel.hide();
+		this._panel.hide();
 	}
 
 
@@ -78,7 +87,7 @@ Arbalet = new function(){
 		this.target_id = target_id;
 		this.target_url = target_url;
 		this.iframeTemplate = '<iframe id="abox-frame-' + id + '" style="display:block; border: none; height: 100%; padding: none; position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%;"" src="' + target_url + '"></iframe>';
-		this.dialogTemplate = '<div id="abox-dialog-' + id + '"  style="z-index:300; background: #eee; border-radius: 5px; border: 1px solid #333; display:none; height: 50px; overflow:hidden; width: 200px; position:absolute;">aaa</div>';
+		this.dialogTemplate = '<div id="abox-dialog-' + id + '"  style="box-shadow: 0 0 5px #000;z-index:300; background: #eee; border-radius: 5px; border: 1px solid #aaa; display:none; height: 50px; overflow:hidden; width: 200px; position:absolute;"><img src="<%=url_for :controller => 'home', :only_path => false %>images/cross-circle.png" alt="" onclick="Arbalet.hideBox('+ id +')" style="position:absolute;right:0px; top:0px; z-index: 200" /><div class="arba-content"></div></div>';
 
 	}
 
@@ -87,7 +96,8 @@ Arbalet = new function(){
 		//target = $('#' + this.target_id);
 		$(this.dialogTemplate).insertAfter('#' + this.target_id);
 		var id = '#abox-dialog-' + this._id;
-		b = $(id);
+		b = $(id + ' .arba-content');
+		console.log(this.iframeTemplate);
 		b.html(this.iframeTemplate);
 		this.place();
 		
@@ -128,109 +138,6 @@ Arbalet = new function(){
 
 
 }
-/*
-if (!Arbalet){
-	var Arbalet = {};
-	Arbalet.account = <%=@app.id%>;
-	Arbalet.base_url = '<%=url_for :controller => 'home', :only_path => false %>';
-	
-}
-
-Arbalet.init = function(){
-	panel_url = 'http://localhost:3000/panels/4/display';
-	//console.log(panel_url);
-	Panel.init(panel_url);
-	Panel.show();
-	
-	//Popup.init('question_label');
-	
-	
-}
-
-Arbalet.hidePanel = function(){
-	Panel.hide();
-}
-
-Tips = {}
-
-	Tips.iframeTemplate = '<iframe id="arbalet-tips-iframe" style="display:block;   border: none; height: 100%; padding: none; position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%;"" src="' + Arbalet.base_url+ 'widgets/ ' + Arbalet.account + '/tips"></iframe>';
-	Tips.dialogTemplate = '<div id="arbalet-tips-dialog"  style="z-index:300; visibility:hidden; height: 60px; overflow:hidden; margin: 0px; position: fixed; bottom: 10px; left: 10px; width: 700px;"></div>';
-
-	Tips.init = function(){
-		insertHtml(this.dialogTemplate);
-	}
-
-
-	Tips.show = function(){
-		var d = $('#arbalet-tips-dialog');
-		d.html(this.iframeTemplate);
-		d.show();
-	}
-	
-Popup = {}
-
-	Popup.dialogTemplate = '<div id="arbalet-popup-dialog"  style="z-index:300; padding:5px; border-radius:5px; background-color: #fff; border:3px solid #ddd; color: #000; visibility:hidden; position: absolute;"></div>';
-
-	Popup.text = 'This is a cute popup';
-	
-	Popup.init = function(element_id){
-		element = document.getElementById(element_id);
-		
-		console.log(element.offset);
-		this.clientLeft = element.offsetLeft;
-		this.offsetTop = element.offsetTop;
-		console.log(element.offsetTop);
-		insertHtml(this.dialogTemplate);
-	}
-
-
-	Popup.show = function(){
-		var d = document.getElementById('arbalet-popup-dialog');
-		d.style.left = Popup.offsetLeft + 100 + 'px';
-		d.style.top = Popup.offsetTop + '10';
-		console.log(this.clientLeft);
-		d.innerHTML = this.text;
-		d.style.visibility = 'visible';
-	}
-
-
-Panel = {}
-
-	Panel.iframeTemplate = '<iframe id="arbalet-panel-iframe" style="display:block;   border: none; height: 100%; padding: none; position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%;"" src="__panelurl__"></iframe>';
-	Panel.maskTemplate = '<div id="arbalet-panel-mask" onclick="return Arbalet.hidePanel();" style="display:none; z-index:1000; height: 100%; width:100%; margin: 0px; position: fixed; top: 0px; left: 0px; background-color: #000; opacity:0.9"></div>';
-	Panel.dialogTemplate = '<div id="arbalet-panel-dialog"  style="border-radius:10px; border:5px solid #ccc; display:none;z-index:10000; height: 500px; overflow:hidden; margin: 0px; position: fixed; top: 50%; left: 50%; width: 900px; margin-left:-450px; margin-top:-250px"></div>';
-
-	Panel.init = function(url){
-		Panel.iframeTemplate = Panel.iframeTemplate.replace('__panelurl__', url);
-		insertHtml(this.maskTemplate);
-		insertHtml(this.dialogTemplate);
-	}
-
-
-	Panel.show = function(){
-		var m = $('#arbalet-panel-mask');
-		m.html(this.dialogTemplate);
-		var d = $('#arbalet-panel-dialog');
-		d.html(this.iframeTemplate);
-		m.show();
-		d.show();
-	}
-	
-	Panel.hide = function(){
-		var m = $('#arbalet-panel-mask');
-		var d = $('#arbalet-panel-dialog');
-		m.hide();
-		d.hide();
-	}
-
-
-var insertHtml = function(html) {
-    var dummy = document.createElement('div');
-    dummy.innerHTML = html;
-    document.body.insertBefore(dummy.firstChild, document.body.firstChild);
-    return document.body.firstChild;
-  };
-  */
 
  insertHtml = function(html) {
     var dummy = document.createElement('div');
@@ -242,8 +149,8 @@ var insertHtml = function(html) {
 window.onload = function(){
 	console.log('init');
 	Arbalet.init();
-	Arbalet.insertPanel();
-	//Arbalet.showPanel();
+	if (Arbalet._panel)
+		Arbalet.showPanel();
 
 	Arbalet.insertBoxes();
 	Arbalet.showBoxes();

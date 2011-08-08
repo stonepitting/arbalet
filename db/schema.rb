@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110806040009) do
+ActiveRecord::Schema.define(:version => 20110808113705) do
 
   create_table "apps", :force => true do |t|
     t.string   "name"
@@ -31,6 +31,15 @@ ActiveRecord::Schema.define(:version => 20110806040009) do
     t.datetime "updated_at"
   end
 
+  create_table "page_boxes", :force => true do |t|
+    t.integer  "box_id"
+    t.integer  "page_id"
+    t.integer  "app_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "pages", :force => true do |t|
     t.string   "name"
     t.string   "url"
@@ -39,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20110806040009) do
     t.boolean  "enabled"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "panel_id"
   end
 
   create_table "panels", :force => true do |t|
