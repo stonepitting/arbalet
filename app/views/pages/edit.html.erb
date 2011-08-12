@@ -11,7 +11,7 @@
 </select>
 <input type="button" class="button" onclick="return addBox(<%=@page.id%>)" value="Add" />
 <ul>
-	<% @page_boxes.each do |box| %>
-	<li><%=box.name%></li>
+	<% @p_boxes.each do |pbox| %>
+	<li><%=pbox.box.name%> <%=link_to 'Del', page_box_path(pbox), :onclick => "return deleteObject('page_boxes', #{pbox.id}, #{pbox.app_id})"%></li>
 	<% end %>
 </ul>

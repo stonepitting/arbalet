@@ -1,4 +1,4 @@
-<h1><%=@app.name%></h1>
+<h1><%=@app.name%> (<%=@app.url%>) | <%=link_to 'Edit', edit_app_path(@app)%></h1>
 
 <ul id="pane2-tabs">
 	<li id="pages_tab"><a href="#" onclick="return loadTab(<%=@app.id%>, 'pages');">Pages</a></li>

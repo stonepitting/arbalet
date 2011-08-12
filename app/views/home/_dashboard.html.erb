@@ -5,7 +5,7 @@
 
 		<ul>
 		<% @apps.each do |app| %>
-		<li id="app_<%=app.id%>" class="app"><%=link_to app.name, app, :onclick => "return loadSite(#{app.id});"%>
+		<li id="app_<%=app.id%>" class="app"><%=link_to app.name, app, :onclick => "return loadApp(#{app.id});"%>
 		<%=image_tag '/images/sub_pointer.png', :class => 'app-pointer'%>
 		</li>
 		<% end %>

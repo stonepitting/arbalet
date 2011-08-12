@@ -110,6 +110,8 @@ function deleteObject(object_type, object_id, app_id){
      url: del_url,
      success: function(msg){
         // reload the tab
+        if (object_type == 'page_boxes')
+        	object_type = 'pages';
        loadTab(app_id, object_type);
      }
 
@@ -143,20 +145,3 @@ function addBox(page_id){
 	   });
 }
 
-/*
-function removeBox(page_id, box_id){
-	if (confirm('Are you sure?')){
-	    del_url = '/page_boxes/' + page_box_id;
-	    $.ajax({
-	     type: "DELETE",
-	     url: del_url,
-	     success: function(msg){
-	        // reload the tab
-	       loadTab(app_id, object_type);
-	     }
-
-	   });
-	   return false;
-	  }
-}
-*/

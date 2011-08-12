@@ -10,12 +10,26 @@ Arbalet = new function(){
 		this._tips = new Array();
 		this._panel = null;
 		this._boxes = new Array();
+		this._toolbar = null;
 		<% if @panel %>
 		this._panel = new Panel('<%=url_for :controller => 'panels', :action => 'display', :id => @panel.id, :only_path => false %>');
 		this.insertPanel();
 		<% end %>
-		this._boxes[0] = new Box(0, 'user_remember_me', 'http://localhost:3000/boxes/2/display');
-		this._boxes[1] = new Box(1, 'user_password_confirmation', 'http://localhost:3000/boxes/2/display');
+		<% if @boxes %>
+			<% 
+			i = 0
+			@boxes.each do |box|%>
+				this._boxes[<%=i%>] = new Box(<%=i%>, '<%=box.target_id%>', '<%=url_for :controller => 'boxes', :action => 'display', :id => box.id, :only_path => false%>');
+			<% 
+			i += 1
+			end %>
+		<% end %>
+		<% if current_user %>
+		this._toolbar = new Toolbar();
+		this._toolbar.insert();
+		<% end %>
+		
+		//this._boxes[1] = new Box(1, 'user_password_confirmation', 'http://localhost:3000/boxes/1/display');
 
 	}
 
@@ -52,6 +66,10 @@ Arbalet = new function(){
 		this._panel.hide();
 	}
 
+	this.activateEdit = function(){
+		return this._toolbar.activateEdit();
+
+	}
 
 	// creates a panel
 	function Panel(target_url){
@@ -135,6 +153,66 @@ Arbalet = new function(){
 		b.hide();
 	}
 
+	// Toolbar displayed on top!
+	function Toolbar(){
+		this.template = '<style type="text/css">.arba-hover, input.arba-hover, a.arba-hover{border:3px solid #33F; cursor: pointer}</style><div id="arba-tool" style="color: #FFA200; position:relative;padding:5px 20px; background:#000;text-align:left">Arbalet Toolbar | <a href="#" id="arba-edit" onclick="$(this).hide();$(\'#arba-cancel\').show();return Arbalet.activateEdit();" style="color: #fff">Edit mode</a> <a id="arba-cancel" href="#" onclick="$(this).hide();$(\'#arba-edit\').show();return location.reload(); " style="color: #fff; display:none">Cancel edit mode</a></div>';
+		this.target_id = null;
+		this.form_template = '<div id="arba-tool-form" style="z-index:1000;width:500px; height:200px;position: fixed; top: 50%; left: 50%; margin-left:-250px; margin-top:-100px; border:5px solid #ccc"></div>';
+		this.iframeTemplate = '<iframe id="arba-tool-frame" style="display:block; border: none; height: 100%; padding: none; position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%;"" src="__src__"></iframe>';
+	}
+
+	Toolbar.prototype.insert = function(){
+		console.log(this.template);
+		$('body').prepend(this.template);
+	}
+
+	Toolbar.prototype.showForm = function(target_id){
+		var url = escape(document.location.href);
+		var app_id = <%=@app.id%>;
+		var iframe_url = '<%=url_for :controller => 'boxes', :action => 'miniform', :only_path => false%>' + '?page_url=' + url + '&app_id=' + app_id + '&target_id=' + target_id;
+
+		iframe_script = this.iframeTemplate.replace('__src__', iframe_url);
+		$('body').prepend(this.form_template);
+		$('#arba-tool-form').html(iframe_script);
+		console.log(iframe_script);
+	}
+
+	Toolbar.prototype.activateEdit = function(){
+		
+		$('*').each(function(){
+			var target_id = $(this).attr('id');
+			if(target_id != undefined && target_id.search('arba') < 0){
+				
+				$(this).hover(
+					function(){
+						Arbalet._toolbar.target_id = target_id;
+						console.log(Arbalet._toolbar.target_id);
+						$('*').removeClass('arba-hover');
+						$(this).addClass('arba-hover');
+					},
+					function(){
+						$(this).removeClass('arba-hover');
+					}
+				);
+
+				$(this).click(function(){
+					console.log('Adding Box to ' + Arbalet._toolbar.target_id);
+					Arbalet._toolbar.showForm(target_id);
+					return false;
+				});
+					
+				
+			}
+		});
+
+		return false;
+	}
+	Toolbar.prototype.deactivateEdit = function(){
+		
+		location.reload();
+		return false;
+	}
+
 
 
 }
@@ -154,5 +232,6 @@ window.onload = function(){
 
 	Arbalet.insertBoxes();
 	Arbalet.showBoxes();
+	
 };
 

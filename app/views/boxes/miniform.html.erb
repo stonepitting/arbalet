@@ -1,0 +1,30 @@
+<h2>New box</h2>
+<%= form_for @box, :html => { :'data-type' => 'html', :id => 'create_form' } do |f| %>
+  <% if @box.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@box.errors.count, "error") %> prohibited this box from being saved:</h2>
+
+      <ul>
+      <% @box.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<%=hidden_field_tag 'page_id', @page.id%>
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <%= f.hidden_field :app_id %>
+  <div class="field">
+    <%= f.label :content %>
+    <%= f.text_field :content %>
+  </div>
+    <%= f.hidden_field :enabled %>
+    <%= f.hidden_field :target_id %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+

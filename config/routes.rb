@@ -1,7 +1,7 @@
 Arbalet::Application.routes.draw do
   resources :page_boxes
 
-  resources :boxes
+  
 
   resources :panels
 
@@ -33,7 +33,13 @@ Arbalet::Application.routes.draw do
     member do
       get 'display'
     end
+
+    collection do
+      get 'miniform'
+    end
+    
   end
+  resources :boxes
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,5 +1,5 @@
 class BoxesController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:display]
   # GET /boxes
   # GET /boxes.xml
   def index
@@ -63,6 +63,48 @@ class BoxesController < ApplicationController
     end
   end
 
+  # Miniform displayed for the toolbar.
+  # Needs
+  # - page => create one for the app if not existing
+  # - app_id
+  def miniform
+
+    # get the necessary date
+    app_id =  params[:app_id]
+    page_url = params[:page_url]
+    target_id = params[:target_id]
+
+    @app = current_user.apps.find(app_id)
+    puts '=================='
+    puts @app.name
+
+    if !@app
+      return
+    end
+
+    @page = @app.pages.find_by_url(page_url)
+    puts '====================='
+    if @page == nil
+      @page = Page.new()
+      @page.user = current_user
+      @page.app = @app
+      @page.url = page_url
+      @page.name = page_url
+      @page.enabled = true
+      @page.save
+    end
+    puts @page.name
+    
+    @box = Box.new
+    @box.target_id = target_id
+    @box.app_id = @app.id
+
+    respond_to do |format|
+      format.html {render :layout => 'mini'}
+      format.xml  { render :xml => @box }
+    end
+  end
+
   # GET /boxes/1/edit
   def edit
     @box = Box.find(params[:id])
@@ -80,8 +122,18 @@ class BoxesController < ApplicationController
     @box.user = current_user
     respond_to do |format|
       if @box.save
-          format.html { redirect_to(app_boxes_path(@box.app_id), :notice => 'Box was successfully created.') }
-          format.xml  { render :xml => @box, :status => :created, :location => @box }
+        if params[:page_id]
+          @page = Page.find(params[:page_id])
+          page_box = PageBox.new
+          page_box.box = @box
+          page_box.page = @page
+          page_box.app_id = @page.app_id
+          page_box.user = current_user
+          page_box.save
+        end
+        
+        format.html { redirect_to(app_boxes_path(@box.app_id), :notice => 'Box was successfully created.') }
+        format.xml  { render :xml => @box, :status => :created, :location => @box }
         
       else
           format.html { render :action => "new" }

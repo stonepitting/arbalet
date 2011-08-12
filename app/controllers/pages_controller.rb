@@ -66,6 +66,9 @@ class PagesController < ApplicationController
     @panels = Panel.all
     
     @page_boxes = @page.boxes
+
+    # p_boxes will be used for display so that we have direct access to the page_boxes row to delete
+    @p_boxes = @page.page_boxes 
     all_boxes = Box.where(:app_id => @app.id)
     @available_boxes = all_boxes - @page_boxes
 

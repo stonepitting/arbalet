@@ -31,36 +31,25 @@ class AppsController < ApplicationController
     require 'uri'
     
     @app = App.find(params[:id])
+
+    origin = request.headers['HTTP_REFERER']
+    display_code = origin.include? @app.url
     
+    if !display_code
+      render :template => 'apps/no_code.js.erb'
+      return
+    end
     if params[:url]
       page_url = URI.unescape(params[:url])
       @page = Page.find_by_url(page_url)
-      puts '================================'
+
       if @page
-        puts @page.id.to_s + @page.name
-        #@show_tips = page.show_tips
         @panel = @page.panel || nil
+        @boxes = @page.boxes || nil
       end
-      #pane = Pane.find_by_url(page_url)
-      #if pane && pane.enabled
-      #  @pane = pane
-      #end
+      
     end
     
-    # Retrieving custom params for a particular page
-=begin
-    if params[:url]
-      page_url = URI.unescape(params[:url])
-      page = Page.find_by_url(page_url)
-      if page
-        @show_tips = page.show_tips
-      end
-      pane = Pane.find_by_url(page_url)
-      if pane && pane.enabled
-        @pane = pane
-      end
-    end
-=end
   end
 
 
